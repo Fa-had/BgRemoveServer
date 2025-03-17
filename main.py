@@ -9,7 +9,8 @@ import os
 
 app = FastAPI()
 
-ALLOWED_ORIGINS = ["http://localhost:3000"]
+# ALLOWED_ORIGINS = ["http://localhost:3000"]
+ALLOWED_ORIGINS = ["*"]
 
 # Enable CORS with specific origins
 app.add_middleware(
