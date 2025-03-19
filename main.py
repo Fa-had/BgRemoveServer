@@ -1,4 +1,5 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header
+from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header, __version__
+from time import time
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import rembg
@@ -62,3 +63,6 @@ async def download_image(
     if os.path.exists(file_path):
         return FileResponse(file_path, media_type="image/png", filename=filename)
     return {"error": "File not found"}
+@app.get('/ping')
+async def hello():
+    return {'res': 'pong', 'version': __version__, "time": time()}
