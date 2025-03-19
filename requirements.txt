@@ -1,5 +1,6 @@
-fastapi
+fastapi==0.100.0
+hypercorn==0.14.4
 rembg
 pillow
-hypercorn
 onnxruntime
+websockets==10.4
