@@ -4,3 +4,4 @@ rembg
 pillow
 onnxruntime
 websockets==10.4
+python-multipart
