@@ -10,7 +10,7 @@ import os
 
 app = FastAPI()
 
-ALLOWED_ORIGINS = ["*"]
+ALLOWED_ORIGINS = ["*","https://bgremoveserver-production.up.railway.app/"]
 
 # Enable CORS with specific origins
 app.add_middleware(
@@ -26,7 +26,6 @@ API_KEYS = {"key1", "key2", "key3"}  # Add multiple API keys here
 
 # # Middleware function to check API key
 def verify_api_key(Authorization: str = Header(None)):
-    print(Authorization)
     if Authorization not in API_KEYS:
         raise HTTPException(status_code=403, detail="Invalid API key")
     return Authorization
