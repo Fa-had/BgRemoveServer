@@ -10,7 +10,7 @@ import os
 
 app = FastAPI()
 
-ALLOWED_ORIGINS = ["*","https://bgremoveserver-production.up.railway.app/"]
+ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 # Enable CORS with specific origins
 app.add_middleware(
