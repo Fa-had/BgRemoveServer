@@ -13,13 +13,13 @@ app = FastAPI()
 ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 # Enable CORS with specific origins
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=ALLOWED_ORIGINS,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # List of allowed API keys (Store securely in environment variables in production)
 API_KEYS = {"key1", "key2", "key3"}  # Add multiple API keys here
@@ -34,7 +34,7 @@ def verify_api_key(Authorization: str = Header(None)):
 @app.post("/remove-background/")
 async def remove_background(
     file: UploadFile = File(...),
-    # Authorization: str = Depends(verify_api_key)  # API key check
+    Authorization: str = Depends(verify_api_key)  # API key check
 ):
     try:
         # Read image bytes and open it
