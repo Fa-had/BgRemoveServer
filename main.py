@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header, __version__
+from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header, __version__, Response
 from time import time
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,6 +9,13 @@ import uuid
 import os
 
 app = FastAPI()
+
+@app.options("/{full_path:path}")
+async def preflight_handler(full_path: str, response: Response):
+    response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
 
 ALLOWED_ORIGINS = ["http://localhost:3000"]
 
