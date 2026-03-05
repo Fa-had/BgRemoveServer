@@ -23,7 +23,7 @@ A high-performance background removal service built with FastAPI. Remove image b
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Fa-had/BgRemoveServer
 cd BgRemoveServer
 ```
 
