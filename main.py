@@ -10,12 +10,6 @@ import os
 
 app = FastAPI()
 
-@app.options("/{full_path:path}")
-async def preflight_handler(full_path: str, response: Response):
-    response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "*"
-    return response
 
 ALLOWED_ORIGINS = ["http://localhost:3000"]
 
@@ -28,10 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# List of allowed API keys (Store securely in environment variables in production)
-API_KEYS = {"key1", "key2", "key3"}  # Add multiple API keys here
+API_KEYS = {"key1", "key2", "key3"} 
 
-# # Middleware function to check API key
 def verify_api_key(Authorization: str = Header(None)):
     if Authorization not in API_KEYS:
         raise HTTPException(status_code=403, detail="Invalid API key")
@@ -44,14 +36,11 @@ async def remove_background(
     Authorization: str = Depends(verify_api_key)  # API key check
 ):
     try:
-        # Read image bytes and open it
         image_bytes = await file.read()
         input_image = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
 
-        # Process image with rembg
         output_image = rembg.remove(input_image)
 
-        # Save processed image
         output_filename = f"processed_images/{uuid.uuid4()}.png"
         output_image.save(output_filename, format="PNG")
 
@@ -63,7 +52,6 @@ async def remove_background(
 @app.get("/download/{filename}")
 async def download_image(
     filename: str,
-    # Authorization: str = Depends(verify_api_key)  # API key check
 ):
     file_path = f"processed_images/{filename}"
     if os.path.exists(file_path):
